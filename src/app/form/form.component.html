@@ -1,0 +1,56 @@
+
+<div class="columns is-mobile">
+	<div class="column">
+		<form class="form-control" [formGroup]="profileForm" (submit)="sendInfo($event)">
+			<ul>
+				<li class="field">
+					<label >Nombre <span>*</span> </label>
+					<input formControlName="name" class="input" type="text" placeholder="Name">
+				</li>
+				<li class="field">
+					<label >Apellido <span>*</span> </label>
+					<input formControlName="lastname" class="input" type="text" placeholder="Last Name">
+				</li>
+				<li class="field">
+					<label >Teléfono<span>*</span> </label>
+					<input formControlName="telephone" class="input" type="number" placeholder="Telefono">
+				</li>
+				<li class="field">
+					<label >Email<span>*</span> </label>
+					<input formControlName="email" class="input" type="email" placeholder="Email">
+				</li>
+				<li class="field">
+					<label >Foto<span>*</span> </label>
+					<input formControlName="photo" class="input" type="text" placeholder="Foto">
+				</li>
+				<li class="field">
+					<button class="button is-primary" type="submit" >Enviar</button>
+				</li>
+			</ul>
+		</form>
+	</div>
+	<div class="column">
+		Lista de socios
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Telefono</th>
+					<th>Email</th>
+					<th>Acción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of dataUser">
+					<td> {{ item.name }}</td>
+					<td> {{ item.lastname }}</td>
+					<td> {{ item.telephone }}</td>
+					<td> {{ item.email }}</td>
+					<td><button class="button is-danger">X</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
