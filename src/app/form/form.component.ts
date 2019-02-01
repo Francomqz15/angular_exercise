@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 @Component({
 	selector: 'app-form',
 	templateUrl: './form.component.html',
@@ -13,18 +14,22 @@ export class FormComponent implements OnInit {
 	idUser: number;
 	editform: boolean;
 	imageUrl: any;
+	isUploaded: boolean;
 	@ViewChild("fileInput") fileInput;
 
 	constructor() {
 		this.listDataPartner = [];
 		this.profileForm = new FormGroup({
-			name: new FormControl(),
-			lastname: new FormControl(),
-			telephone: new FormControl(),
-			email: new FormControl()
+			name: new FormControl('',Validators.required),
+			lastname: new FormControl('',Validators.required),
+			adress: new FormControl('',Validators.required),
+			telephone: new FormControl('',Validators.required),
+			email: new FormControl('',Validators.required),
+			file: new FormControl('',Validators.required)
 		});
 		this.idUser = 0;
 		this.editform = false;
+		this.isUploaded = false;
 	}
 
 	ngOnInit() {
@@ -45,7 +50,7 @@ export class FormComponent implements OnInit {
 			let indexPartner  = this.listDataPartner.findIndex(partner => partner.id === this.profileForm.value.id)
 			this.listDataPartner[indexPartner] = this.profileForm.value;
 		}
-
+		this.isUploaded = false;
 		this.profileForm.reset();
 		this.idUser++;
 	}
@@ -55,7 +60,9 @@ export class FormComponent implements OnInit {
         let file = e.target.files[0];
         reader.onloadend = () => {
           this.imageUrl = reader.result;
+          this.isUploaded = true;
         }
+        
         reader.readAsDataURL(file);
 	}
 
@@ -72,6 +79,7 @@ export class FormComponent implements OnInit {
 			name: profilePartner.name,
 			lastname: profilePartner.lastname,
 			telephone: profilePartner.telephone,
+			adress: profilePartner.adress,
 			email: profilePartner.email,
 		})
 		this.idUser = profilePartner.id;

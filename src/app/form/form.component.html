@@ -14,6 +14,10 @@
 					<label >Apellido <span>*</span> </label>
 					<input formControlName="lastname" class="input" type="text" placeholder="Last Name">
 				</li>
+					<li class="field">
+					<label >Dirección <span>*</span> </label>
+					<input formControlName="adress" class="input" type="text" placeholder="Dirección">
+				</li>
 				<li class="field">
 					<label >Teléfono<span>*</span> </label>
 					<input formControlName="telephone" class="input" type="number" placeholder="Telefono">
@@ -23,21 +27,20 @@
 					<input formControlName="email" class="input" type="email" placeholder="Email">
 				</li>
 				<li class="field">
-
 					<label class="file-label">
-						<input class="file-input" type="file" name="avatar" (change)="addFiles($event)">
-						<span class="file-cta">
+						<input class="file-input" formControlName="file" type="file" name="avatar" (change)="addFiles($event)">
+						<span class="file-cta" [ngClass]="{'has-background-success has-text-white': isUploaded}">
 							<span class="file-icon">
 								<i class="fas fa-upload"></i>
 							</span>
 							<span class="file-label">
-								Choose a file…
+								Subir foto *
 							</span>
 						</span>
 					</label>
 				</li>
 				<li class="field">
-					<button class="button is-primary" type="submit" >Enviar</button>
+					<button [disabled]="!profileForm.valid" class="button is-primary" type="submit" >Enviar</button>
 				</li>
 			</ul>
 		</form>
@@ -49,6 +52,7 @@
 				<tr>
 					<th>Nombre</th>
 					<th>Apellido</th>
+					<th>Dirección</th>
 					<th>Telefono</th>
 					<th>Email</th>
 					<th>Foto</th>
@@ -60,6 +64,7 @@
 				<tr *ngFor="let item of listDataPartner">
 					<td> {{ item.name }}</td>
 					<td> {{ item.lastname }}</td>
+					<td> {{ item.adress }}</td>
 					<td> {{ item.telephone }}</td>
 					<td> {{ item.email }}</td>
 					<td> <img [src]="item.avatar" width="30px" alt=""></td>
