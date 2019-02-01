@@ -1,6 +1,9 @@
 
 <div class="columns is-mobile">
 	<div class="column">
+		<h3 class="title">
+			Inscripcion para asociarse al club  
+		</h3>
 		<form class="form-control" [formGroup]="profileForm" (submit)="sendInfo($event)">
 			<ul>
 				<li class="field">
@@ -20,8 +23,18 @@
 					<input formControlName="email" class="input" type="email" placeholder="Email">
 				</li>
 				<li class="field">
-					<label >Foto<span>*</span> </label>
-					<input formControlName="photo" class="input" type="text" placeholder="Foto">
+
+					<label class="file-label">
+						<input class="file-input" type="file" name="avatar" (change)="addFiles($event)">
+						<span class="file-cta">
+							<span class="file-icon">
+								<i class="fas fa-upload"></i>
+							</span>
+							<span class="file-label">
+								Choose a file…
+							</span>
+						</span>
+					</label>
 				</li>
 				<li class="field">
 					<button class="button is-primary" type="submit" >Enviar</button>
@@ -30,26 +43,43 @@
 		</form>
 	</div>
 	<div class="column">
-		Lista de socios
-		<table class="table">
+		<h3 class="title">Lista de socios</h3>
+		<table class="table" *ngIf="listDataPartner.length > 0">
 			<thead>
 				<tr>
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Telefono</th>
 					<th>Email</th>
-					<th>Acción</th>
+					<th>Foto</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of dataUser">
+				<tr *ngFor="let item of listDataPartner">
 					<td> {{ item.name }}</td>
 					<td> {{ item.lastname }}</td>
 					<td> {{ item.telephone }}</td>
 					<td> {{ item.email }}</td>
-					<td><button class="button is-danger">X</button></td>
+					<td> <img [src]="item.avatar" width="30px" alt=""></td>
+					<td>
+						<button class="button is-primary" (click)="editPartner(item)" >
+							<span class="icon">
+								<i class="fas fa-edit"></i>
+							</span>
+						</button>
+					</td>
+					<td>
+						<button class="button is-danger" (click)="deletePartner(item)" >
+							<span class="icon">
+								<i class="fas fa-trash"></i>
+							</span>
+						</button>
+					</td>
 				</tr>
 			</tbody>
+
 		</table>
 	</div>
 </div>
